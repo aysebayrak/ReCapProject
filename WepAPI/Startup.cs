@@ -52,23 +52,7 @@ namespace WepAPI
 
             //services.AddSingleton<IUserService, UserManager>();
             //services.AddSingleton<IUserDal, EfUserDal>();
-            //var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
-            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            //    .AddJwtBearer(options =>
-            //    {
-            //        options.TokenValidationParameters = new TokenValidationParameters
-            //        {
-            //            ValidateIssuer = true,
-            //            ValidateAudience = true,
-            //            ValidateLifetime = true,
-            //            ValidIssuer = tokenOptions.Issuer,
-            //            ValidAudience = tokenOptions.Audience,
-            //            ValidateIssuerSigningKey = true,
-            //            IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
-            //        };
-            //    });
-            //services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            //ServiceTool.Create(services);
+
         }
 
 
