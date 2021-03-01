@@ -10,13 +10,13 @@ using System.Text;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfRentalDal : EfEntityRepositoryBase<Rental, NorthwindContext>, IRentalDal
+    public class EfRentalDal : EfEntityRepositoryBase<Rental, ReCapProjectContext>, IRentalDal
     {
       
 
         List<RentalDetailDto> IRentalDal.GetRentalDetails(Expression<Func<Rental, bool>> filter)
         {
-            using (NorthwindContext context = new NorthwindContext())
+            using (ReCapProjectContext context = new ReCapProjectContext())
             {
                 var result = from r in filter == null ? context.Rentals : context.Rentals.Where(filter)
                              join c in context.Cars
