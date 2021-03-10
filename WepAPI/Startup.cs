@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Core.DependencyResolvers;
 using Core.Extensions;
 using Core.Utilities.IoC;
 using Core.Utilities.Security.Encryption;
@@ -55,8 +56,10 @@ namespace WepAPI
                     };
                 });
 
+            services.AddDependencyResolvers(new ICoreModule[] {
+                new CoreModule()
+            });
 
-            ServiceTool.Create(services);
             //services.AddSingleton<IBrandService, BrandManager>();
             //services.AddSingleton<IBrandDal, EfBrandDal>();
 
