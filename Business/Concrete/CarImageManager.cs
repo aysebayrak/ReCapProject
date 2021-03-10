@@ -24,6 +24,7 @@ namespace Business.Concrete
         {
             _carImageDal = carImageDal;
         }
+      
         [ValidationAspect(typeof(CarImageValidator))]//uymasını istediğim kurallar
         public IResult Add(CarImage carImage, IFormFile file)
         {
