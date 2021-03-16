@@ -7,7 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Threading;
+
 
 namespace WepAPI.Controllers
 {
@@ -23,10 +24,12 @@ namespace WepAPI.Controllers
         {
             _carService = carService;
         }
-
+        
+   
         [HttpGet("getall")]
          public  IActionResult GetAll()
         {
+            Thread.Sleep(5000);
             var result =_carService.GetAll();
             if (result.Success)
             {
