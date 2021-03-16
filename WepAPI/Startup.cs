@@ -36,9 +36,9 @@ namespace WepAPI
             //constracterde eðer
             //ICarservice istenirse arka planda carmanager new ver demek
             services.AddControllers();
-         //   services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            //   services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-
+            services.AddCors();
             var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -89,6 +89,7 @@ namespace WepAPI
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader());
 
             app.UseHttpsRedirection();
 
