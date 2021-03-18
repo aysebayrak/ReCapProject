@@ -34,7 +34,7 @@ namespace WepAPI.Controllers
         [HttpGet("getbyid")]
         public IActionResult GetById(int id)
         {
-            var result = _colorService.GetById(id);
+            var result = _colorService.GetByColorId(id);
             if (result.Success)
             {
                 return Ok(result);
