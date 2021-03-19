@@ -13,7 +13,7 @@ namespace Core.Utilities.FileHelper
             {
                 //extension=uzantı
                 //Path=yol
-                string extension = Path.GetExtension(file.FileName).ToUpper();//verilen path uzantısını büyük harfe çeviriyor.
+                string extension = Path.GetExtension(file.FileName);//verilen path uzantısını büyük harfe çeviriyor.
                 string newGUID = CreateGuid() + extension;
                 var directory = Directory.GetCurrentDirectory() + "\\wwwroot";
                 var path = directory + @"\Images";
@@ -21,13 +21,13 @@ namespace Core.Utilities.FileHelper
                 {
                     Directory.CreateDirectory(path);
                 }
-                String imagePath;
+                string imagePath;
                 using(FileStream fileStream = File.Create(path + "\\" + newGUID))
                 {
                     file.CopyToAsync(fileStream);
-                    imagePath = path + "\\" + newGUID;
+                    imagePath = "/Images" + "\\" + newGUID;
                     fileStream.Flush();
-                }
+            }
                 return imagePath.Replace("\\", "/");
 
             }

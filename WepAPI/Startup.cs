@@ -94,6 +94,7 @@ namespace WepAPI
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseStaticFiles();
 
             app.UseAuthentication();
 

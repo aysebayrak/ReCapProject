@@ -17,7 +17,7 @@ namespace Entities.DTOs
         public string ColorName { get; set; }
         public string ModelYear { get; set; }
         public string Description { get; set; }
-
+        public string ImagePath { get; set; }
 
     }
 }

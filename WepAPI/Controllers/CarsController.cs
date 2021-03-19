@@ -30,13 +30,24 @@ namespace WepAPI.Controllers
          public  IActionResult GetAll()
         {
             Thread.Sleep(1000);
-            var result =_carService.GetAll();
+            var result =_carService.GetCarDetails();
             if (result.Success)
             {
                 return Ok(result);
             }
             return BadRequest(result);
         }
+        [HttpGet("getcarsbybrandid")]
+        public IActionResult GetCarsByBrandid(int brandId)
+        {
+            var result = _carService.GetCarDetails(c=>c.BrandId==brandId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
         [HttpGet("getbyid")]
         public  IActionResult GetById(int id)
         {
