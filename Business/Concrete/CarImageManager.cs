@@ -86,9 +86,9 @@ namespace Business.Concrete
             return new SuccessResult();
 
         }
-        private IResult CheckIfImageLimitExpired(int caıId)
+        private IResult CheckIfImageLimitExpired(int carId)
         {
-            int result = _carImageDal.GetAll(c => c.CarId == caıId).Count;
+            int result = _carImageDal.GetAll(c => c.CarId == carId).Count;
             if (result >= 5)
             {
                 return new ErrorResult(Messages.ImageLimitExpiredForCar);

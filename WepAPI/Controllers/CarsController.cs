@@ -37,8 +37,8 @@ namespace WepAPI.Controllers
             }
             return BadRequest(result);
         }
-        [HttpGet("getcarsbybrandid")]
-        public IActionResult GetCarsByBrandid(int brandId)
+        [HttpGet("getcarbybrandid")]
+        public IActionResult GetCarByBrandid(int brandId)
         {
             var result = _carService.GetCarDetails(c=>c.BrandId==brandId);
             if (result.Success)
@@ -47,6 +47,17 @@ namespace WepAPI.Controllers
             }
             return BadRequest(result);
         }
+        [HttpGet("getcarbycolorid")]
+        public IActionResult GetCarByColorid(int colorId)
+        {
+            var result = _carService.GetCarDetails(c => c.ColorId == colorId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
 
         [HttpGet("getbyid")]
         public  IActionResult GetById(int id)
