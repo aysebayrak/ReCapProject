@@ -62,5 +62,27 @@ namespace WepAPI.Controllers
             }
             return BadRequest(result);
         }
+        [HttpGet("getrentaldetails")]
+        public IActionResult GetRentalDetails()
+        {
+            Thread.Sleep(1000);
+            var result = _rentalService.GetRentalDetails();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+        [HttpGet("getbyid")]
+        public IActionResult GetById(int id)
+        {
+            var result = _rentalService.GetById(id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
     }
 }
+
