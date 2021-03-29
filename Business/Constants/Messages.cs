@@ -58,5 +58,9 @@ namespace Business.Constants
         public static string UpdatedCar = "Araba Güncellendi";
 
         public static string RentalsListed = "Kiralanan Araçlar";
+
+        public static string CreditCardDeleted = "Kart Başarı İle Silinidi";
+        public static string CreditCardUpdated = "Kart Başarı İle Güncellendi";
+        public static string CreditCardAdded = "Kart Başarı İle Eklendi";
     }
 }
