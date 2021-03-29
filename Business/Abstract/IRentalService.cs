@@ -17,6 +17,9 @@ namespace Business.Abstract
         IDataResult<List<Rental>> GetAll();
         IDataResult<Rental> GetById(int id);
 
+        IDataResult<List<RentalDetailDto>> GetRentalByCarId(int carId);
+
         IDataResult<List<RentalDetailDto>> GetRentalDetails(Expression<Func<Rental, bool>> filter = null);
+        IResult IsRentable(Rental rental);
     }
 }

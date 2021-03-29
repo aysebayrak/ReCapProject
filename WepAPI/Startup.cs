@@ -89,11 +89,14 @@ namespace WepAPI
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.ConfigureCustomExceptionMiddleware();//apýyee uygunsistemi traccethe aldýk
+
             app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader());
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
             app.UseStaticFiles();
 
             app.UseAuthentication();
