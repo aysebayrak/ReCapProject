@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Core.Aspects.Autofac.Transaction;
 using Core.Utilities.Results;
@@ -19,6 +20,8 @@ namespace Business.Concrete
         {
             _carDal = carDal;
         }
+
+        [SecuredOperation("brand.add, admin")]
         public IResult Add(Car car)
         {
             if (car.DailyPrice > 0)
