@@ -17,12 +17,12 @@ namespace Business.ValidationRules.FluentValidation
             RuleFor(p => p.RentDate).Equals(DateTime.Now);
             RuleFor(p => p.RentDate).NotEmpty();
            // RuleFor(p => p.ReturnDate).GreaterThan(DateTime.Now);
-            RuleFor(r => r.ReturnDate).Must(CheckReturnDate).WithMessage("Araba Şuan Başkası Tarafından Kiralanmış!");
+          //  RuleFor(r => r.ReturnDate).Must(CheckReturnDate).WithMessage("Araba Şuan Başkası Tarafından Kiralanmış!");
         }
 
-        private bool CheckReturnDate(DateTime arg)
-        {
-            return arg.GetValueOrDefault() != null;
-        }
+        //private bool CheckReturnDate(DateTime arg)
+        //{
+        //    return arg.GetValueOrDefault() != null;
+        //}
     }
 }

@@ -32,7 +32,7 @@ namespace DataAccess.Concrete.EntityFramework
                                  BrandName = b.BrandName,
                                  ColorName = cl.ColorName,
                                  DailyPrice = cr.DailyPrice,
-                                 ImagePath = (from carImage in context.CarImages where carImage.CarId == cr.CarId select carImage.ImagePath).FirstOrDefault()
+                                // ImagePath = (from carImage in context.CarImages where carImage.CarId == cr.CarId select carImage.ImagePath).FirstOrDefault()
                              };
                 return result.ToList();
             };
