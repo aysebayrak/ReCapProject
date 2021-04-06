@@ -1,6 +1,7 @@
 ﻿using Core.Entities.Concrete;
 using Core.Utilities.Results;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -18,6 +19,7 @@ namespace Business.Abstract
         IDataResult<List<OperationClaim>> GetClaims(User user);
 
         IDataResult<User> GetByMail(string email);
+        IResult EditProfile(UserForUpdateDto user);
     }
 }
 
