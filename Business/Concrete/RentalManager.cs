@@ -2,6 +2,7 @@
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -16,23 +17,32 @@ namespace Business.Concrete
     public class RentalManager : IRentalService
     {
         IRentalDal _rentalDal;
-        public RentalManager(IRentalDal rentalDal)
+        ICarDal _carDal;
+        ICustomerDal _customerDal;
+        public RentalManager(IRentalDal rentalDal,ICustomerDal customerDal,ICarDal carDal)
         {
             _rentalDal = rentalDal;
+            _carDal = carDal;
+            _customerDal = customerDal;
 
         }
 
-        [ValidationAspect(typeof(RentalValidator))]
         public IResult Add(Rental rental)
         {
+            var result = BusinessRules.Run(CarRentalStatus(rental),
+                CheckFindexScoreByCustomer(rental.CustomerId, rental.CarId));//findeks kontrolu 
+            if (result != null)
+            {
+                return result;
+            }
             _rentalDal.Add(rental);
-            return new SuccessResult(Messages.RentalAdded);
+            return new SuccessResult();
         }
 
         public IResult Delete(Rental rental)
         {
             _rentalDal.Delete(rental);
-            return new SuccessResult(Messages.RentalDeleted);
+            return new SuccessResult();
         }
 
         public IDataResult<List<Rental>> GetAll()
@@ -40,47 +50,56 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll());
         }
 
-        public IDataResult<Rental> GetById(int id)
+        public IDataResult<Rental> GetById(int rentalId)
         {
-            return new SuccessDataResult<Rental>(_rentalDal.Get(I => I.RentalId == id));
+            return new SuccessDataResult<Rental>(_rentalDal.Get(r => r.RentalId == rentalId));
         }
 
-        public IDataResult<List<RentalDetailDto>> GetRentalByCarId(int carId)
+        public IDataResult <RentalDetailDto> GetRentalDetailsById(int rentalId)
         {
-            return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetRentalDetails(r => r.CarId == carId), Messages.RentalsListed);
+            return new SuccessDataResult<RentalDetailDto>(_rentalDal.GetRentalDetails(rentalId));
         }
 
-        public IDataResult<List<RentalDetailDto>> GetRentalDetails(Expression<Func<Rental, bool>> filter = null)
+        public IDataResult<List<RentalDetailDto>> GetRentalsDetails()
         {
-            return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetRentalDetails(filter), Messages.RentalReturned);
-        }
-
-        public IResult IsRentable(Rental rental)
-        {
-
-            var dateTime = _rentalDal.GetAll(r => r.CarId == rental.CarId);
-            foreach (var date in dateTime)
-            {
-                if (date.RentDate <= rental.RentDate && rental.RentDate <= date.ReturnDate)
-                {
-                    return new ErrorResult();
-                }
-                else if (date.RentDate <= rental.ReturnDate && rental.ReturnDate <= date.ReturnDate)
-                {
-                    return new ErrorResult();
-                }
-                else if (date.RentDate >= rental.RentDate && rental.ReturnDate >= date.ReturnDate)
-                {
-                    return new ErrorResult();
-                }
-            }
-            return new SuccessResult();
+            return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetRentalDetails());
         }
 
         public IResult Update(Rental rental)
         {
             _rentalDal.Update(rental);
-            return new SuccessResult(Messages.RentalUpdated);
+            return new SuccessResult();
+        }
+
+        private IResult CarRentalStatus(Rental rental)
+        {
+            var result = _rentalDal.Get(r => (r.CarId == rental.CarId && r.ReturnDate == null)
+            || (r.RentDate>=rental.RentDate&& r.ReturnDate>=rental.RentDate)
+
+            );
+            if(result != null)
+            {
+                return new ErrorResult(Messages.NotCarAvailable);
+            }
+            return new SuccessResult();
+               
+        }
+
+        private IResult CheckFindexScoreByCustomer(int customerId, int carId)
+        {
+            var car =_carDal.Get(c => c.CarId == carId);
+
+            var customer = _customerDal.Get(c => c.CustomerId == customerId);
+
+            var carScore = car.MinFindexScore;
+            var customerScore = customer.FindexScore;
+
+            if (customerScore >= carScore)
+            {
+                return new SuccessResult();
+            }
+            return new ErrorResult(Messages.NotEnough);
+
         }
     }
 }

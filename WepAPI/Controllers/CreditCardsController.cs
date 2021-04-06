@@ -63,27 +63,38 @@ namespace WepAPI.Controllers
             }
             return BadRequest(result);
         }
-        [HttpGet("getcreditcardnumber")]
-        public IActionResult GetByCreditCardNumber(string cardNumber)
-        {
-            var result = _creditCardService.GetByCreditCardNumber(cardNumber);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
-        }
-        [HttpGet("getbycustomername")]
-        public IActionResult GetByName(string name)
-        {
-            var result = _creditCardService.GetByName(name);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
-        }
+        //[HttpGet("getcreditcardnumber")]
+        //public IActionResult GetByCreditCardNumber(string cardNumber)
+        //{
+        //    var result = _creditCardService.GetByCreditCardNumber(cardNumber);
+        //    if (result.Success)
+        //    {
+        //        return Ok(result);
+        //    }
+        //    return BadRequest(result);
+        //}
+        //[HttpGet("getbycustomername")]
+        //public IActionResult GetByName(string name)
+        //{
+        //    var result = _creditCardService.GetByName(name);
+        //    if (result.Success)
+        //    {
+        //        return Ok(result);
+        //    }
+        //    return BadRequest(result);
+        //}
 
+
+        [HttpGet("getbycustomer")]
+        public IActionResult GetByCustomerId(int customerId)
+        {
+            var result = _creditCardService.GetByCustomerId(customerId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
 
 
     }

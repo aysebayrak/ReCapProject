@@ -15,11 +15,12 @@ namespace Business.Abstract
         IResult Delete(Rental rental);
         IResult Update(Rental rental);
         IDataResult<List<Rental>> GetAll();
-        IDataResult<Rental> GetById(int id);
+        IDataResult<Rental> GetById(int rentalId);
 
-        IDataResult<List<RentalDetailDto>> GetRentalByCarId(int carId);
+        IDataResult<RentalDetailDto> GetRentalDetailsById(int rentalId);
 
-        IDataResult<List<RentalDetailDto>> GetRentalDetails(Expression<Func<Rental, bool>> filter = null);
-        IResult IsRentable(Rental rental);
+
+        IDataResult<List<RentalDetailDto>> GetRentalsDetails();
+      //  IResult IsRentable(Rental rental);
     }
 }

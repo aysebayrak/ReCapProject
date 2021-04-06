@@ -62,5 +62,10 @@ namespace Business.Constants
         public static string CreditCardDeleted = "Kart Başarı İle Silinidi";
         public static string CreditCardUpdated = "Kart Başarı İle Güncellendi";
         public static string CreditCardAdded = "Kart Başarı İle Eklendi";
+
+        public static string CreditCardExist = "Kredi Kartı Bulunmakta";
+
+        public static string NotCarAvailable = "İstenilen Araba Suan Başkası Tarafından Kiralı";
+        public static string NotEnough = "Fimdeks Puanınız Yetersiz";
     }
 }

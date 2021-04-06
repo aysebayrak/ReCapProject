@@ -16,10 +16,12 @@ namespace WepAPI.Controllers
     {
 
         IRentalService _rentalService;
+        IPaymentService _paymentService;
 
-        public RentalsController(IRentalService rentalService)
+        public RentalsController(IRentalService rentalService, IPaymentService paymentService)
         {
             _rentalService = rentalService;
+            _paymentService = paymentService;
         }
         [HttpGet("getall")]
         public IActionResult GetAll()
@@ -62,27 +64,51 @@ namespace WepAPI.Controllers
             }
             return BadRequest(result);
         }
+        [HttpPost("payment")]
+        public IActionResult PaymentTest(Payment quantity) 
+        {
+
+            var result = _paymentService.paymentTransaction(quantity);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result.Message);
+        }
+
+        [HttpGet("getbycarid")]
+        public IActionResult GetByCarId(int carId)
+        {
+            var result = _rentalService.GetById(carId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
         [HttpGet("getrentaldetails")]
         public IActionResult GetRentalDetails()
         {
-            Thread.Sleep(1000);
-            var result = _rentalService.GetRentalDetails();
+            var result = _rentalService.GetRentalsDetails();
             if (result.Success)
             {
                 return Ok(result);
             }
-            return BadRequest(result);
+            return BadRequest(result.Message);
         }
-        [HttpGet("getbyid")]
-        public IActionResult GetById(int id)
+
+        [HttpGet("getrentaldetailsbyid")]
+        public IActionResult GetRentalDetailsById(int rentalId)
         {
-            var result = _rentalService.GetById(id);
+
+            var result = _rentalService.GetRentalDetailsById(rentalId);
             if (result.Success)
             {
                 return Ok(result);
             }
             return BadRequest(result);
         }
+
     }
 }
 
