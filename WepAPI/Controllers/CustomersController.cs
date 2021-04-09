@@ -21,17 +21,33 @@ namespace WepAPI.Controllers
         {
             _customerService = customerService;
         }
+
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
-            Thread.Sleep(5000);
             var result = _customerService.GetAll();
+
             if (result.Success)
             {
                 return Ok(result);
             }
+
             return BadRequest(result);
         }
+
+        [HttpGet("getcustomerdetails")]
+        public IActionResult GetCustomerDetails()
+        {
+            var result = _customerService.GetCustomerDetails();
+
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+
         [HttpPost("add")]
         public IActionResult Post(Customer customer)
         {
@@ -42,6 +58,7 @@ namespace WepAPI.Controllers
             }
             return BadRequest(result);
         }
+
         [HttpPost("delete")]
         public IActionResult Delete(Customer customer)
         {
@@ -52,6 +69,7 @@ namespace WepAPI.Controllers
             }
             return BadRequest(result);
         }
+
         [HttpPost("update")]
         public IActionResult Update(Customer customer)
         {
