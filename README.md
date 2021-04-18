@@ -27,4 +27,7 @@ Araba kiralama fikri üzerine oluşmuştur .
 - Extensions
   - Claim
     - Claim Principal
+  - Error Handling
+    - Error Details
+    - Validation Error Details
 
